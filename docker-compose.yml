@@ -1,0 +1,27 @@
+version: "3.5"
+
+services:
+  web:
+    image: scottsmith/php:7.4-stretch-devtools
+    environment:
+      - PHP_IDE_CONFIG=serverName=sso
+      - XDEBUG_ENABLED=true
+      - XDEBUG_REMOTE_HOST=172.18.224.1
+      - RELAY_HOST=mail.external.home
+      - SERVER_NAME=sso-web.apps.internal.home
+    volumes:
+      - .:/var/www
+      - composer-cache:/root/.composer
+      - npm-cache:/root/.npm
+      - yarn-cache:/usr/local/share/.cache/yarn/v4
+
+volumes:
+  composer-cache:
+    external: true
+    name: composer-cache
+  npm-cache:
+    external: true
+    name: npm-cache
+  yarn-cache:
+    external: true
+    name: yarn-cache
